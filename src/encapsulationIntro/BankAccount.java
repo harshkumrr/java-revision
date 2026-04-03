@@ -17,12 +17,16 @@ public class BankAccount {
     }
 
     public void withDraw(double amount) {
-       if(amount>0&&amount<balance){
+       try {
+           if(amount>balance){
+               throw new InsufficientFundException("Insufficient balance: "+balance);
+           }
            this.balance -= amount;
            System.out.println("Withdrawn: "+amount);
-       } else {
-           System.out.println("Insufficient amount");
+       } catch (InsufficientFundException e){
+           System.out.println("Insufficient funds- "+e.getMessage());
        }
+
     }
 
     public void printdetails(){
